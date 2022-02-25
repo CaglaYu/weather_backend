@@ -1,4 +1,4 @@
 node_modules
 package-lock.json
-.config/auth.config.js
-.config/db.config.js
+app/config/auth.config.js
+app//config/db.config.js
