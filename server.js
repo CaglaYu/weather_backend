@@ -12,15 +12,17 @@ app.use(express.urlencoded({ extended: true }));
 
 //db connection
 const db = require("./app/models");
+const dbConfig = require("./app/config/db.config.js");
 const Role = db.role;
 
 db.mongoose
-  .connect(db.url, {
+  .connect(dbConfig.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
   .then(() => {
     console.log("Connected to the database!");
+    initial();
   })
   .catch(err => {
     console.log("Could not connect to the database!", err);
@@ -40,6 +42,7 @@ app.listen(PORT, () => {
 });
 
 function initial() {
+  console.log("girdi");
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       new Role({
