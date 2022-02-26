@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 var corsOptions = {
-  origin: "http://localhost:8087"
+  origin: "http://localhost:3000"
 };
 app.use(cors(corsOptions));
 
@@ -36,7 +36,7 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8087;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
@@ -44,6 +44,7 @@ app.listen(PORT, () => {
 function initial() {
   console.log("girdi");
   Role.estimatedDocumentCount((err, count) => {
+    console.log(count);
     if (!err && count === 0) {
       new Role({
         name: "user"
@@ -55,15 +56,7 @@ function initial() {
         console.log("added 'user' to roles collection");
       });
 
-      new Role({
-        name: "moderator"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'moderator' to roles collection");
-      });
+     
 
       new Role({
         name: "admin"
